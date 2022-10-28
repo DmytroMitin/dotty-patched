@@ -24,10 +24,10 @@ lazy val `scala3-compiler` = project
     ),
     assembly / assemblyMergeStrategy := {
       case PathList("META-INF", _*) => MergeStrategy.discard
-//      case _ => MergeStrategy.first
-      case x =>
-        val oldStrategy = (assembly / assemblyMergeStrategy).value
-        oldStrategy(x)
+      case _ => MergeStrategy.last
+//      case x =>
+//        val oldStrategy = (assembly / assemblyMergeStrategy).value
+//        oldStrategy(x)
     },
   )
 
@@ -57,6 +57,6 @@ lazy val `test-macros` = project
 
 lazy val test = project
   .settings(
-//    customScalaSettings,
+    customScalaSettings,
   )
   .dependsOn(`test-macros`)
