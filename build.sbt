@@ -1,14 +1,18 @@
-lazy val scala3V = "3.2.1"
-lazy val scala2V = "2.13.10"
+lazy val scala3V    = "3.2.1"
+lazy val scala2V    = "2.13.10"
+lazy val scalatestV = "3.2.14"
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 ThisBuild / scalaVersion := scala3V
-ThisBuild / version := scala3V
+
 lazy val myOrganization = "com.github.dmytromitin"
-ThisBuild / organization := s"$myOrganization.patched.${scalaOrganization.value}"
+def patchedOrganization(scalaOrganization: String) = s"$myOrganization.patched.$scalaOrganization"
+lazy val patchedVersion = scala3V
 
 lazy val patchedCompilerSettings = Seq(
+  organization := patchedOrganization(scalaOrganization.value),
+  version      := patchedVersion,
   Compile / packageDoc / publishArtifact := false,
 )
 
@@ -17,8 +21,8 @@ lazy val `scala3-compiler` = project
   .settings(
     patchedCompilerSettings,
     libraryDependencies ++= Seq(
-      scalaOrganization.value % "scala3-interfaces" % scalaVersion.value,
-      scalaOrganization.value %% "tasty-core" % scalaVersion.value,
+      scalaOrganization.value %  "scala3-interfaces" % scalaVersion.value,
+      scalaOrganization.value %% "tasty-core"        % scalaVersion.value,
       "org.scala-sbt" % "sbt" % "1.7.2",
       "org.scala-js" %% "scalajs-ir" % "1.11.0" cross CrossVersion.for3Use2_13,
     ),
@@ -37,26 +41,39 @@ lazy val `scala3-compiler-assembly` = project
     Compile / packageBin := (`scala3-compiler` / assembly).value,
   )
 
+lazy val commonCoreSettings = Seq(
+  version := "0.1",
+  organization := myOrganization,
+  libraryDependencies ++= Seq(
+    "org.scalatest" %% "scalatest" % scalatestV % Test
+       exclude("org.scala-lang.modules", "scala-xml_3"),
+  ),
+)
+
+lazy val eval = project
+  .settings(
+    commonCoreSettings,
+    libraryDependencies ++= Seq(
+      scalaOrganization.value %% "scala3-staging"  % scalaVersion.value,
+      scalaOrganization.value %% "scala3-compiler" % scalaVersion.value,
+      "io.get-coursier" % "coursier_2.13" % "2.1.0-M7-39-gb8f3d7532",
+    ),
+  )
+
 lazy val customScalaSettings = Seq(
   managedScalaInstance := false,
   ivyConfigurations += Configurations.ScalaTool,
   libraryDependencies ++= Seq(
-    scalaOrganization.value % "scala-library" % scala2V,
+    scalaOrganization.value %  "scala-library"  % scala2V,
     scalaOrganization.value %% "scala3-library" % scalaVersion.value,
-//    organization.value %% "scala3-compiler" % version.value % "scala-tool",
-    organization.value %% "scala3-compiler-assembly" % version.value % "scala-tool",
+//    patchedOrganization(scalaOrganization.value) %% "scala3-compiler" % patchedVersion % "scala-tool",
+    patchedOrganization(scalaOrganization.value) %% "scala3-compiler-assembly" % patchedVersion % "scala-tool",
   ),
 )
 
-lazy val `test-macros` = project
-  .settings(
-    libraryDependencies ++= Seq(
-      scalaOrganization.value %% "scala3-staging" % scalaVersion.value,
-    ),
-  )
-
 lazy val test = project
   .settings(
+    commonCoreSettings,
     customScalaSettings,
   )
-  .dependsOn(`test-macros`)
+  .dependsOn(eval)
