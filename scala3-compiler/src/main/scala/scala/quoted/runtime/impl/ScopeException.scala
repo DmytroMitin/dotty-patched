@@ -1,14 +1,16 @@
 package scala.quoted.runtime.impl
 
 import dotty.tools.dotc.ast.tpd.Tree
-import dotty.tools.dotc.core.Contexts._
+import dotty.tools.dotc.core.Contexts.*
+import dotty.tools.dotc.report
 
 class ScopeException(msg: String) extends Exception(msg)
 
 object ScopeException:
   def checkInCorrectScope(scope: Scope, currentScope: Scope, tree: Tree, kind: String)(using Context): Unit =
     if scope.root != currentScope.root then
-      throw new ScopeException(s"Cannot use $kind oustide of the macro splice `$${...}` or the scala.quoted.staging.run(...)` where it was defined")
+//      throw new ScopeException(s"Cannot use $kind oustide of the macro splice `$${...}` or the scala.quoted.staging.run(...)` where it was defined")
+      report.warning(s"Patched compiler: using $kind oustide of the macro splice `$${...}` or the scala.quoted.staging.run(...)` where it was defined", tree.sourcePos)
 
     if ctx.settings.XcheckMacros.value && !scope.isOuterScopeOf(currentScope) then
       throw new ScopeException(
