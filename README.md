@@ -5,7 +5,9 @@
 [![Sonatype Snapshots](https://img.shields.io/nexus/r/https/oss.sonatype.org/com.github.dmytromitin/eval_3.svg?color=success)](https://oss.sonatype.org/content/groups/public/com/github/dmytromitin/eval_3/)
 [![javadoc](https://javadoc.io/badge2/com.github.dmytromitin/eval_3/javadoc.svg)](https://javadoc.io/doc/com.github.dmytromitin/eval_3)
 [![Scaladex](https://index.scala-lang.org/dmytromitin/dotty-patched/latest.svg?color=success)](https://index.scala-lang.org/dmytromitin/dotty-patched)
+[![Scaladex](https://index.scala-lang.org/dmytromitin/dotty-patched/eval/latest.svg?color=success)](https://index.scala-lang.org/dmytromitin/dotty-patched/eval)
 [![Scaladex](https://index.scala-lang.org/dmytromitin/dotty-patched/scala3-compiler-patched/latest.svg?color=success)](https://index.scala-lang.org/dmytromitin/dotty-patched/scala3-compiler-patched)
+[![Scaladex](https://index.scala-lang.org/dmytromitin/dotty-patched/scala3-compiler-patched-assembly/latest.svg?color=success)](https://index.scala-lang.org/dmytromitin/dotty-patched/scala3-compiler-patched-assembly)
 [![Join the chat at https://gitter.im/DmytroMitin/eval](https://badges.gitter.im/DmytroMitin/eval.svg)](https://gitter.im/DmytroMitin/eval?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [mvnrepository](https://mvnrepository.com/artifact/com.github.dmytromitin)
