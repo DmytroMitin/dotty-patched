@@ -49,7 +49,7 @@ sbt clean compile
 printAtCompileTime(1 + 1) // 2 (at compile time)
 ```
 ## Eval
-On contrary to `staging.run`, `Eval` evaluates into a value a source code rather than a tree.
+On contrary to `staging.run`, `Eval` evaluates into a value a source code rather than a tree. So it works on standard Scala 3.
 ```scala
 scalaVersion := "3.2.1" // or 3.2.0
 libraryDependencies += "com.github.dmytromitin" %% "eval" % "0.1"
