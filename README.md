@@ -76,7 +76,7 @@ sbt clean compile
 ```scala
 printAtCompileTime(1 + 1) // 2 (at compile time)
 ```
-# Built-in Scala 3 macros
+# Some built-in Scala 3 macros
 ```scala
 import com.github.dmytromitin.macros.eval.AnnotationsMacro.getAnnotations
 import com.github.dmytromitin.macros.eval.PrintValueMacro.printAtCompileTime
