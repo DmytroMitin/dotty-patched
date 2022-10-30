@@ -22,7 +22,7 @@ https://github.com/DmytroMitin/dotty-patched/commit/fdf010ca4901b22961f3ae1cb345
 (this seems similar to `context.eval`/`toolbox.eval` evaluating an untyped tree in [Scala 2](https://docs.scala-lang.org/overviews/reflection/symbols-trees-types.html#tree-creation-via-parse-on-toolboxes)).
 This functionality exists in Scala 3/Dotty but deliberately blocked in [macros](https://docs.scala-lang.org/scala3/reference/metaprogramming/macros.html) 
 (because of the [phase consistency principle](https://docs.scala-lang.org/scala3/reference/metaprogramming/macros.html#the-phase-consistency-principle)). 
-To unblock, a code expanding macros should be compiled with the compiler patched. 
+To unblock, a code expanding macros should be [compiled](https://www.scala-sbt.org/1.x/docs/Configuring-Scala.html#Configuring+Scala+tool+dependencies) with the compiler patched. 
 Macros themselves can be compiled with the standard compiler. 
 Staging dependency didn't have to be patched so far.
 ```scala
