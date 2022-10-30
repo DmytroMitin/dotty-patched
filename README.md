@@ -1,4 +1,13 @@
-# Background
+# Dotty-patched and Eval
+
+[![Sonatype Snapshots](https://img.shields.io/nexus/r/https/oss.sonatype.org/com.github.dmytromitin/eval_3.svg?color=success)](https://oss.sonatype.org/content/groups/public/com/github/dmytromitin/eval_3/)
+[![javadoc](https://javadoc.io/badge2/com.github.dmytromitin/eval_3/javadoc.svg)](https://javadoc.io/doc/com.github.dmytromitin/eval_3)
+[![Scaladex](https://index.scala-lang.org/dmytromitin/dotty-patched/latest.svg?color=success)](https://index.scala-lang.org/dmytromitin/dotty-patched)
+
+[mvnrepository](https://mvnrepository.com/artifact/com.github.dmytromitin)
+[repo1.maven](https://repo1.maven.org/maven2/com/github/dmytromitin/)
+
+## Background
 
 https://github.com/lampepfl/dotty
 
@@ -8,7 +17,7 @@ https://stackoverflow.com/questions/70945320/how-to-compile-and-execute-scala-co
 
 https://github.com/DmytroMitin/dotty-patched/commit/fdf010ca4901b22961f3ae1cb3459b5fa194652e
 
-# Dotty-patched and multi-staging in Scala 3 macros
+## Dotty-patched and multi-staging in Scala 3 macros
 `staging.run` [evaluates](https://docs.scala-lang.org/scala3/reference/metaprogramming/staging.html) a typed tree into a value (this seems similar to `context.eval`/`toolbox.eval` evaluating an untyped tree in Scala 2). This functionality exists in Scala 3/Dotty but blocked in macros (because of the [phase consistency principle](https://docs.scala-lang.org/scala3/reference/metaprogramming/macros.html#the-phase-consistency-principle)). To unblock, a code expanding macros should be compiled with the compiler patched. Macros themselves can be compiled with the standard compiler. Staging didn't have to be patched so far.
 ```scala
 scalaVersion := "3.2.1" // 3.2.0, 3.1.3, ...
@@ -39,7 +48,7 @@ sbt clean compile
 ```scala
 printAtCompileTime(1 + 1) // 2 (at compile time)
 ```
-# Eval
+## Eval
 On contrary to `staging.run`, `Eval` evaluates into a value a source code rather than a tree.
 ```scala
 scalaVersion := "3.2.1" // or 3.2.0
@@ -53,7 +62,7 @@ import com.github.dmytromitin.eval.Eval
 
 Eval[Int]("1 + 1") // 2 (at runtime)
 ```
-# Eval in Scala 3 macros
+## Eval in Scala 3 macros
 ```scala
 import com.github.dmytromitin.eval.Eval
 import scala.quoted.*
@@ -76,7 +85,7 @@ sbt clean compile
 ```scala
 printAtCompileTime(1 + 1) // 2 (at compile time)
 ```
-# Some built-in Scala 3 macros
+## Some built-in Scala 3 macros
 ```scala
 import com.github.dmytromitin.macros.eval.AnnotationsMacro.getAnnotations
 import com.github.dmytromitin.macros.eval.PrintValueMacro.printAtCompileTime
