@@ -50,7 +50,7 @@ lazy val root = (project in file("."))
 lazy val patchedScalaV = scala3V
 lazy val patchedCompilerSettings = Seq(
   version := patchedScalaV,
-  Compile / packageDoc / publishArtifact := false,
+//  Compile / packageDoc / publishArtifact := false,
 )
 
 //https://repo1.maven.org/maven2/org/scala-lang/scala3-compiler_3/3.2.1/scala3-compiler_3-3.2.1-sources.jar
