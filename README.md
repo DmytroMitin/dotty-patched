@@ -18,7 +18,13 @@ https://stackoverflow.com/questions/70945320/how-to-compile-and-execute-scala-co
 https://github.com/DmytroMitin/dotty-patched/commit/fdf010ca4901b22961f3ae1cb3459b5fa194652e
 
 ## Dotty-patched and multi-staging in Scala 3 macros
-`staging.run` [evaluates](https://docs.scala-lang.org/scala3/reference/metaprogramming/staging.html) a typed tree (an `Expr`) into a value (this seems similar to `context.eval`/`toolbox.eval` evaluating an untyped tree in Scala 2). This functionality exists in Scala 3/Dotty but blocked in macros (because of the [phase consistency principle](https://docs.scala-lang.org/scala3/reference/metaprogramming/macros.html#the-phase-consistency-principle)). To unblock, a code expanding macros should be compiled with the compiler patched. Macros themselves can be compiled with the standard compiler. Staging dependency didn't have to be patched so far.
+`staging.run` [evaluates](https://docs.scala-lang.org/scala3/reference/metaprogramming/staging.html) a typed tree (an `Expr`) into a value 
+(this seems similar to `context.eval`/`toolbox.eval` evaluating an untyped tree in [Scala 2](https://docs.scala-lang.org/overviews/reflection/symbols-trees-types.html#tree-creation-via-parse-on-toolboxes)).
+This functionality exists in Scala 3/Dotty but blocked in [macros](https://docs.scala-lang.org/scala3/reference/metaprogramming/macros.html) 
+(because of the [phase consistency principle](https://docs.scala-lang.org/scala3/reference/metaprogramming/macros.html#the-phase-consistency-principle)). 
+To unblock, a code expanding macros should be compiled with the compiler patched. 
+Macros themselves can be compiled with the standard compiler. 
+Staging dependency didn't have to be patched so far.
 ```scala
 scalaVersion := "3.2.1" // 3.2.0, 3.1.3, ...
 libraryDependencies += scalaOrganization.value %% "scala3-staging" % scalaVersion.value
