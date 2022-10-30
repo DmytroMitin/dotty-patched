@@ -51,7 +51,8 @@ inline def printAtCompileTime[A](a: A): Unit = ${impl[A]('a)}
 def impl[A: Type](a: Expr[A])(using Quotes): Expr[Unit] =
   import quotes.reflect.*
   given staging.Compiler = staging.Compiler.make(this.getClass.getClassLoader)
-  println(staging.run(a)) // evaluating a tree
+  val aValue = staging.run(a) // evaluating a tree
+  println(aValue)
   '{()}
 ```
 ```scala
@@ -87,7 +88,7 @@ def impl[A: Type](a: Expr[A])(using Quotes): Expr[Unit] =
     report.errorAndAbort(s"No source code for ${a.show}")
   )
   val aValue = Eval[A](str) // evaluating source code
-  println(aValue.toString)
+  println(aValue)
 
   '{()}
 ```
